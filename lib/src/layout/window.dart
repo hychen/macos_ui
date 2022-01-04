@@ -9,6 +9,14 @@ import 'package:macos_ui/src/layout/scaffold.dart';
 import 'package:macos_ui/src/library.dart';
 import 'package:macos_ui/src/theme/macos_theme.dart';
 
+/// Options for MacosWindow
+class MacosWindowOptions {
+  MacosWindowOptions({this.showSidebar});
+
+  /// Display sidebar, default is true.
+  bool? showSidebar = true;
+}
+
 /// A basic frame layout.
 ///
 /// Provides a body for main content, via [child], and a [sidebar] for
@@ -24,6 +32,7 @@ class MacosWindow extends StatefulWidget {
     this.child,
     this.sidebar,
     this.backgroundColor,
+    this.options,
   }) : super(key: key);
 
   /// Specifies the background color for the Window.
@@ -36,6 +45,9 @@ class MacosWindow extends StatefulWidget {
 
   /// A sidebar to display at the left of the scaffold.
   final Sidebar? sidebar;
+
+  /// An options to configure the MacosWindow.
+  final MacosWindowOptions? options;
 
   @override
   _MacosWindowState createState() => _MacosWindowState();
@@ -51,6 +63,10 @@ class _MacosWindowState extends State<MacosWindow> {
   @override
   void initState() {
     super.initState();
+    if(widget.options != null) {
+      _showSidebar = widget.options?.showSidebar as bool;
+    }
+
     _sidebarWidth = (widget.sidebar?.startWidth ?? widget.sidebar?.minWidth) ??
         _sidebarWidth;
     if (widget.sidebar?.builder != null) {
