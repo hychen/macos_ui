@@ -24,6 +24,7 @@ class TitleBar extends StatelessWidget {
     this.automaticallyImplyLeading = true,
     this.actions,
     this.centerTitle = true,
+    this.showDivider = true,
   }) : super(key: key);
 
   /// Specifies the height of this [TitleBar]
@@ -75,6 +76,9 @@ class TitleBar extends StatelessWidget {
 
   /// Whether the title should be centered.
   final bool centerTitle;
+
+  /// Display divider, default is true.
+  final bool showDivider;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +143,9 @@ class TitleBar extends StatelessWidget {
             padding: padding,
             decoration: BoxDecoration(
               color: theme.canvasColor,
-              border: Border(bottom: BorderSide(color: dividerColor)),
+              border: showDivider == true
+                  ? Border(bottom: BorderSide(color: dividerColor))
+                  : null,
             ).copyWith(
               color: decoration?.color,
               image: decoration?.image,
